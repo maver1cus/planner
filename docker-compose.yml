@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: ./apps/client
+      dockerfile: Dockerfile
+    container_name: planner-client
+    restart: unless-stopped
+    command: npm run start
+    volumes:
+      - ./apps/client:/usr/src/app
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    networks:
+      - planner-network
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: planner-api
+    restart: unless-stopped
+    command: npm run start:dev
+    networks:
+      - planner-network
+    volumes:
+      - ./apps/api:/usr/src/app
+    depends_on:
+      - db_api
+    ports:
+      - "5000:5000"
+
+  db_api:
+    image: postgres
+    container_name: planner-db-api
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=psql
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=planner-db
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    networks:
+      - planner-network
+    ports:
+      - "25432:5432"
+
+networks:
+  planner-network:
+    driver: bridge

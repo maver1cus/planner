@@ -2,11 +2,11 @@ import { ConnectionOptions } from 'typeorm';
 
 const config: ConnectionOptions = {
   type: 'postgres',
-  host: 'localhost',
+  host: 'db_api',
   port: 5432,
   username: 'postgres',
   password: 'psql',
-  database: 'planner',
+  database: 'planner-db',
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: false,
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
