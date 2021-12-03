@@ -7,6 +7,7 @@ import {UserResponseInterface} from "@app/user/types/user-response.interface";
 import {sign} from "jsonwebtoken";
 import {JWT_SECRET} from "@app/config";
 import {compare} from "bcrypt";
+import {CreateUserDto} from "@app/user/dto/create-user.dto";
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,24 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
   ) {
+  }
+
+  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+    const userByLogin = await this.userRepository.findOne({
+      login: createUserDto.login
+    })
+
+    if (userByLogin) {
+      throw new HttpException(
+        'Login are taken',
+        HttpStatus.UNPROCESSABLE_ENTITY
+      )
+    }
+
+    const newUser = new UserEntity();
+    Object.assign(newUser, createUserDto);
+
+    return await this.userRepository.save(newUser);
   }
 
   async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
@@ -58,6 +77,8 @@ export class UserService {
   }
 
   buildUserResponse(user: UserEntity): UserResponseInterface {
+    delete user.password;
+
     return {
       user: {
         ...user,
