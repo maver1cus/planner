@@ -43,7 +43,7 @@
     <connection id="1ff5e2a3-4106-422a-b607-2f9deb174847" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="1ff5e2a3-4106-422a-b607-2f9deb174847" dataset="public.users" active-filter-id="">
+    <filter-actions connection-id="1ff5e2a3-4106-422a-b607-2f9deb174847" dataset="public.users" active-filter-id="EMPTY_FILTER">
       <filter id="88cee065-9b2e-48a8-8af0-0950b85b59c7" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />
       </filter>

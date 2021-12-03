@@ -1,8 +1,10 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UserService } from '@app/user/user.service';
-import {LoginUserDto} from "@app/user/dto/login-user.dto";
-import {UserResponseInterface} from "@app/user/types/user-response.interface";
-import {CreateUserDto} from "@app/user/dto/create-user.dto";
+import { LoginUserDto } from '@app/user/dto/login-user.dto';
+import { UserResponseInterface } from '@app/user/types/user-response.interface';
+import { CreateUserDto } from '@app/user/dto/create-user.dto';
+import { User } from '@app/user/decorators/user.decorator';
+import { UserEntity } from '@app/user/user.entity';
 
 @Controller()
 export class UserController {
@@ -10,7 +12,7 @@ export class UserController {
 
   @Post('registration')
   async createUser(
-    @Body('user') createUserDto: CreateUserDto
+    @Body('user') createUserDto: CreateUserDto,
   ): Promise<UserResponseInterface> {
     const user = await this.userService.createUser(createUserDto);
 
@@ -18,11 +20,14 @@ export class UserController {
   }
 
   @Post('login')
-  async login(
-    @Body('user') loginUserDto: LoginUserDto
-  ): Promise<any> {
+  async login(@Body('user') loginUserDto: LoginUserDto): Promise<any> {
     const user = await this.userService.login(loginUserDto);
 
+    return this.userService.buildUserResponse(user);
+  }
+
+  @Get('user')
+  async getCurrentUser(@User() user: UserEntity) {
     return this.userService.buildUserResponse(user);
   }
 }
