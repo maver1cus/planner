@@ -83,13 +83,11 @@ export class UserService {
   }
 
   buildUserResponse(user: UserEntity): UserResponseInterface {
-    delete user.password;
 
     return {
-      user: {
-        ...user,
-        token: this.generateJwt(user),
-      },
+      id: user.id,
+      login: user.login,
+      token: this.generateJwt(user),
     };
   }
 }

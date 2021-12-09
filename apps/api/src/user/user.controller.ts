@@ -6,15 +6,31 @@ import { CreateUserDto } from '@app/user/dto/create-user.dto';
 import { User } from '@app/user/decorators/user.decorator';
 import { UserEntity } from '@app/user/user.entity';
 import {AuthGuard} from "@app/user/guards/auth.guard";
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
+import {ResponseUserDto} from "@app/user/dto/response-user.dto";
 
+@ApiTags('user')
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiOperation({summary: 'Создание пользователя'})
+  @ApiResponse({
+    status: 200,
+    type: ResponseUserDto,
+    description: 'Пользователь создан'
+  })
   @Post('registration')
   @UsePipes(new ValidationPipe())
+  @ApiBody({ type: CreateUserDto })
   async createUser(
-    @Body('user') createUserDto: CreateUserDto,
+    @Body() createUserDto: CreateUserDto,
   ): Promise<UserResponseInterface> {
     const user = await this.userService.createUser(createUserDto);
 
@@ -23,7 +39,13 @@ export class UserController {
 
   @Post('login')
   @UsePipes(new ValidationPipe())
-  async login(@Body('user') loginUserDto: LoginUserDto): Promise<any> {
+  @ApiOperation({summary: 'Логин'})
+  @ApiResponse({
+    status: 200,
+    type: ResponseUserDto,
+  })
+  @ApiBody({ type: LoginUserDto})
+  async login(@Body() loginUserDto: LoginUserDto): Promise<any> {
     const user = await this.userService.login(loginUserDto);
 
     return this.userService.buildUserResponse(user);
@@ -31,6 +53,8 @@ export class UserController {
 
   @Get('user')
   @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'Get current user' })
+  @ApiBearerAuth('token')
   async getCurrentUser(@User() user: UserEntity) {
     return this.userService.buildUserResponse(user);
   }
