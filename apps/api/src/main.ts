@@ -1,4 +1,4 @@
-import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 if (!process.env.IS_TS_NODE) {
   require('module-alias/register');
@@ -24,7 +24,7 @@ async function bootstrap() {
         description: 'Enter JWT token',
         in: 'header',
       },
-      'token'
+      'token',
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);

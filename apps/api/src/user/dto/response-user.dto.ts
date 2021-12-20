@@ -1,7 +1,7 @@
 export class ResponseUserDto {
   readonly user: {
-    login: string,
-    id: number,
-    token: string
-  }
+    login: string;
+    id: number;
+    token: string;
+  };
 }
