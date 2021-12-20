@@ -8,10 +8,10 @@ export class AuthGuard implements CanActivate {
       .switchToHttp()
       .getRequest<ExpressRequestInterface>()
 
-    if (request.user) {
-      return true
+    if (!request.user) {
+      throw new HttpException('Not authorized', HttpStatus.UNAUTHORIZED);
     }
 
-    throw new HttpException('Not authorized', HttpStatus.UNAUTHORIZED);
+    return true
   }
 }
