@@ -2,12 +2,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@app/user/user.entity';
 import { Repository } from 'typeorm';
-import { LoginUserDto } from '@app/user/dto/login-user.dto';
 import { UserResponseInterface } from '@app/user/types/user-response.interface';
 import { sign } from 'jsonwebtoken';
 import { JWT_SECRET } from '@app/config';
 import { compare } from 'bcrypt';
-import { CreateUserDto } from '@app/user/dto/create-user.dto';
+import { UserDto } from '@app/user/dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -16,9 +15,9 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+  async createUser(userDto: UserDto): Promise<UserEntity> {
     const userByLogin = await this.userRepository.findOne({
-      login: createUserDto.login,
+      login: userDto.login,
     });
 
     if (userByLogin) {
@@ -29,15 +28,15 @@ export class UserService {
     }
 
     const newUser = new UserEntity();
-    Object.assign(newUser, createUserDto);
+    Object.assign(newUser, userDto);
 
     return await this.userRepository.save(newUser);
   }
 
-  async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
+  async login(userDto: UserDto): Promise<UserEntity> {
     const user = await this.userRepository.findOne(
       {
-        login: loginUserDto.login,
+        login: userDto.login,
       },
       {
         select: ['id', 'login', 'password'],
@@ -51,10 +50,7 @@ export class UserService {
       );
     }
 
-    const isPasswordCorrect = await compare(
-      loginUserDto.password,
-      user.password,
-    );
+    const isPasswordCorrect = await compare(userDto.password, user.password);
 
     if (!isPasswordCorrect) {
       throw new HttpException(
@@ -83,7 +79,6 @@ export class UserService {
   }
 
   buildUserResponse(user: UserEntity): UserResponseInterface {
-
     return {
       id: user.id,
       login: user.login,
