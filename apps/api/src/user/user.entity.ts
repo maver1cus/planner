@@ -7,12 +7,12 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ example: 'login', description: 'Логин пользователя' })
   @Column()
+  @ApiProperty({ example: 'login', description: 'Логин пользователя' })
   login: string;
 
-  @ApiProperty({ example: '123', description: 'Пароль пользователя' })
   @Column({ select: false })
+  @ApiProperty({ example: '123', description: 'Пароль пользователя' })
   password: string;
 
   @BeforeInsert()
