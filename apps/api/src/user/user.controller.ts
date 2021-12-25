@@ -1,4 +1,11 @@
 import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
   Body,
   Controller,
   Get,
@@ -7,21 +14,13 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { UserService } from '@app/user/user.service';
-import { UserDto } from '@app/user/dto/user.dto';
-import { UserResponseInterface } from '@app/user/types/user-response.interface';
-import { User } from '@app/user/decorators/user.decorator';
-import { UserEntity } from '@app/user/user.entity';
 import { AuthGuard } from '@app/user/guards/auth.guard';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
 import { ResponseUserDto } from '@app/user/dto/response-user.dto';
-
+import { User } from '@app/user/decorators/user.decorator';
+import { UserDto } from '@app/user/dto/user.dto';
+import { UserEntity } from '@app/user/user.entity';
+import { UserResponseInterface } from '@app/user/types/user-response.interface';
+import { UserService } from '@app/user/user.service';
 @ApiTags('user')
 @Controller()
 export class UserController {
