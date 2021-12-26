@@ -3,5 +3,5 @@
 /**/dist/
 /.vscode
 /.idea
+/pg_data
 .env
-pg_data
