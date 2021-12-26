@@ -1,7 +1,7 @@
 /**/node_modules/
 /**/build/
 /**/dist/
-.vscode
+/.vscode
+/.idea
+/pg_data
 .env
-.idea
-pg_data
