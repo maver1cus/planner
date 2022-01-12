@@ -1,5 +1,12 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { TaskEntity } from '@app/task/task.entity';
 import { hash } from 'bcrypt';
 
 @Entity({ name: 'users' })
@@ -19,4 +26,7 @@ export class UserEntity {
   async hashPassword() {
     this.password = await hash(this.password, 10);
   }
+
+  @OneToMany(() => TaskEntity, (task) => task.author)
+  tasks: TaskEntity[];
 }
