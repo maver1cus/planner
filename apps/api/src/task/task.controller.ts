@@ -6,23 +6,36 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@app/user/guards/auth.guard';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { TaskResponseInterface } from '@app/task/types/task-response.inteface';
 import { TaskService } from './task.service';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { User } from '@app/user/decorators/user.decorator';
+import { UserEntity } from '@app/user/user.entity';
 
 @Controller('task')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.taskService.create(createTaskDto);
+  @UseGuards(AuthGuard)
+  create(
+    @Body() createTaskDto: CreateTaskDto,
+    @User() currentUser: UserEntity,
+  ) {
+    return this.taskService.create(createTaskDto, currentUser);
   }
 
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  async findAll(
+    @User('id') currentUserId: number,
+  ): Promise<TaskResponseInterface[]> {
+    const tasks = await this.taskService.findAll(currentUserId);
+
+    return this.taskService.buildTasksResponse(tasks);
   }
 
   @Get(':id')
