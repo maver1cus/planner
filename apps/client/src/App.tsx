@@ -1,10 +1,11 @@
 import React from 'react';
+import AppRouter from "./components/app-router/app-router";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Planner</h1>
-    </div>
+    <>
+      <AppRouter />
+    </>
   );
 }
 
