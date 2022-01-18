@@ -1,6 +1,7 @@
 import axios from 'axios';
-import {AuthActions, SetAuthAction, SetErrorAction, SetIsLoadingAction, SetUserAction} from './types';
-import {AppDispatch} from '../../index';
+import { AuthActions, SetAuthAction, SetErrorAction, SetIsLoadingAction, SetUserAction } from './types';
+import { AppDispatch } from '../../index';
+import { saveUser } from '../../../utils/user';
 import UserService from '../../../api/user.service';
 
 export const AuthActionCreators = {
@@ -12,14 +13,8 @@ export const AuthActionCreators = {
     try {
       dispatch(AuthActionCreators.setIsLoading(true));
       const response = await UserService.registration(loginUser, password);
-
       const { login, token } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('login', login);
-      localStorage.setItem('auth', 'true');
-      dispatch(AuthActionCreators.setUser(login));
-      dispatch(AuthActionCreators.setIsAuth(true));
-      dispatch(AuthActionCreators.setIsLoading(false));
+      saveUser(token, login, dispatch);
     } catch (e) {
       const message = axios.isAxiosError(e) && e.response
         ? e.response.data.message
@@ -33,14 +28,8 @@ export const AuthActionCreators = {
     try {
       dispatch(AuthActionCreators.setIsLoading(true));
       const response = await UserService.login(loginUser, password);
-
       const { login, token } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('login', login);
-      localStorage.setItem('auth', 'true');
-      dispatch(AuthActionCreators.setUser(login));
-      dispatch(AuthActionCreators.setIsAuth(true));
-      dispatch(AuthActionCreators.setIsLoading(false));
+      saveUser(token, login, dispatch);
     } catch (e) {
       const message = axios.isAxiosError(e) && e.response
         ? e.response.data.message
