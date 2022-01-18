@@ -4,12 +4,12 @@ import {useTypedSelector} from "../../hooks/use-typed-selector";
 import {useHistory} from "react-router-dom";
 import {RouteNames} from "../../router";
 import s from './nav-bar.module.css'
+import {useActions} from "../../hooks/use-actions";
 
 const NavBar: FC = () => {
   const router = useHistory();
   const {isAuth, user} = useTypedSelector(state => state.auth)
-
-  const logout = () => console.log('logout');
+  const {logout} = useActions()
 
   return (
     <Layout.Header>

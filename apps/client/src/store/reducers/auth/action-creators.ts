@@ -17,6 +17,7 @@ export const AuthActionCreators = {
         const { login, token } = response.data;
         localStorage.setItem('token', token);
         localStorage.setItem('login', login);
+        localStorage.setItem('auth', 'true');
         dispatch(AuthActionCreators.setUser(login));
         dispatch(AuthActionCreators.setIsAuth(true));
         dispatch(AuthActionCreators.setIsLoading(false))
@@ -39,6 +40,7 @@ export const AuthActionCreators = {
         const { login, token } = response.data;
         localStorage.setItem('token', token);
         localStorage.setItem('login', login);
+        localStorage.setItem('auth', 'true');
         dispatch(AuthActionCreators.setUser(login));
         dispatch(AuthActionCreators.setIsAuth(true));
         dispatch(AuthActionCreators.setIsLoading(false));
@@ -52,5 +54,11 @@ export const AuthActionCreators = {
       }
     };
   },
-  logout: () => {}
+  logout: () => async (dispatch: AppDispatch) => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('login');
+    localStorage.removeItem('auth');
+    dispatch(AuthActionCreators.setUser(''));
+    dispatch(AuthActionCreators.setIsAuth(false));
+  }
 }
