@@ -1,8 +1,6 @@
-import {IUser} from "../../../models/user.interface";
-
 export interface AuthState {
   isAuth: boolean;
-  user: IUser;
+  user: string;
   isLoading: boolean;
   error: string;
 }
@@ -25,7 +23,7 @@ export interface SetErrorAction {
 }
 export interface SetUserAction {
   type: AuthActions.SET_USER;
-  payload: IUser;
+  payload: string;
 }
 export interface SetIsLoadingAction {
   type: AuthActions.SET_IS_LOADING;
