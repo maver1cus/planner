@@ -17,6 +17,7 @@ export const AuthActionCreators = {
         const { login, token } = response.data;
         localStorage.setItem('token', token);
         localStorage.setItem('login', login);
+        dispatch(AuthActionCreators.setUser(login));
         dispatch(AuthActionCreators.setIsAuth(true));
         dispatch(AuthActionCreators.setIsLoading(false));
       } catch (e) {
