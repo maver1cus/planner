@@ -1,25 +1,29 @@
-import React, {FC, useState} from 'react';
-import {Button, Form, Input} from 'antd';
-import s from './registration-form.module.css';
-import {rulesInput} from '../../utils/rules-input';
-import {useActions} from '../../hooks/use-actions';
-import {useTypedSelector} from '../../hooks/use-typed-selector';
+import React, { useState } from 'react';
+import { Button, Form, Input } from 'antd';
+import { AppDispatch } from '../../store';
+import { rulesInput } from '../../utils/rules-input';
+import { useTypedSelector } from '../../hooks/use-typed-selector';
+import s from './user-form.module.css';
 
 
-const RegistrationForm: FC = () => {
+interface IProps {
+  onSubmit: (loginUser: string, password: string) => (dispatch: AppDispatch) => void;
+  textBtn: string
+}
+
+const UserForm: ({ onSubmit }: IProps) => JSX.Element = ({onSubmit, textBtn}: IProps) => {
   const { error, isLoading } = useTypedSelector((state) => state.auth);
   const [ userLogin, setUserLogin ] = useState('');
   const [ password, setPassword ] = useState('');
 
-  const { registration } = useActions();
-  const submit = async () => {
-    registration(userLogin, password);
+  const handlerSubmit = async () => {
+    onSubmit(userLogin, password);
   };
 
   return (
     <Form
-      className={s.loginForm}
-      onFinish={submit}
+      className={s.userForm}
+      onFinish={handlerSubmit}
     >
       { error && <div style={{color: 'red', textAlign: 'center'}}>{error}</div> }
       <Form.Item
@@ -51,11 +55,11 @@ const RegistrationForm: FC = () => {
           htmlType="submit"
           loading={isLoading}
         >
-          Зарегистрироваться
+          { textBtn }
         </Button>
       </Form.Item>
     </Form>
   );
 };
 
-export default RegistrationForm;
+export default UserForm;
