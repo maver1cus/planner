@@ -1,6 +1,6 @@
 export const rulesInput = {
-  required: (message: string = 'Обязательное поле') => ({
+  required: (message = 'Обязательное поле') => ({
     required: true,
     message
   })
-}
+};

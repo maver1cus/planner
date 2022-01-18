@@ -1,4 +1,4 @@
-import {$host} from "./index";
+import {$host} from './index';
 
 export default class UserService {
   static async login(login: string, password: string) {
@@ -6,6 +6,6 @@ export default class UserService {
   }
 
   static async registration(login: string, password: string) {
-    return await $host.post('/registration', {login, password})
+    return await $host.post('/registration', {login, password});
   }
 }

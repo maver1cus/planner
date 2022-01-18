@@ -1,7 +1,7 @@
-import React from "react";
-import LoginPage from "../pages/login-page/login-page";
-import MainPage from "../pages/main-page/main-page";
-import RegistrationPage from "../pages/registration-page/registration-page";
+import React from 'react';
+import LoginPage from '../pages/login-page/login-page';
+import MainPage from '../pages/main-page/main-page';
+import RegistrationPage from '../pages/registration-page/registration-page';
 
 export interface IRoute {
   path: string;
@@ -18,8 +18,8 @@ export enum RouteNames {
 export const publicRoutes: IRoute[] = [
   {path: RouteNames.LOGIN, exact: true, component: LoginPage},
   {path: RouteNames.REGISTRATION, exact: true, component: RegistrationPage}
-]
+];
 
 export const privateRoutes: IRoute[] = [
   {path: RouteNames.MAIN, exact: true, component: MainPage}
-]
+];

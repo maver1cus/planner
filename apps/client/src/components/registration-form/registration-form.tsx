@@ -1,20 +1,20 @@
 import React, {FC, useState} from 'react';
 import {Button, Form, Input} from 'antd';
 import s from './registration-form.module.css';
-import {rulesInput} from "../../utils/rules-input";
-import {useActions} from "../../hooks/use-actions";
-import {useTypedSelector} from "../../hooks/use-typed-selector";
+import {rulesInput} from '../../utils/rules-input';
+import {useActions} from '../../hooks/use-actions';
+import {useTypedSelector} from '../../hooks/use-typed-selector';
 
 
 const RegistrationForm: FC = () => {
-  const { error, isLoading } = useTypedSelector(state => state.auth)
+  const { error, isLoading } = useTypedSelector((state) => state.auth);
   const [ userLogin, setUserLogin ] = useState('');
   const [ password, setPassword ] = useState('');
 
-  const { registration } = useActions()
+  const { registration } = useActions();
   const submit = async () => {
     registration(userLogin, password);
-  }
+  };
 
   return (
     <Form
@@ -29,7 +29,7 @@ const RegistrationForm: FC = () => {
       >
         <Input
           value={userLogin}
-          onChange={e => setUserLogin(e.target.value)}
+          onChange={(e) => setUserLogin(e.target.value)}
         />
       </Form.Item>
 
@@ -41,7 +41,7 @@ const RegistrationForm: FC = () => {
         <Input
           value={password}
           type="password"
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Item>
 

@@ -1,20 +1,20 @@
 import React, {FC, useState} from 'react';
 import {Button, Form, Input} from 'antd';
+import {rulesInput} from '../../utils/rules-input';
+import {useActions} from '../../hooks/use-actions';
+import {useTypedSelector} from '../../hooks/use-typed-selector';
 import s from './login-form.module.css';
-import {rulesInput} from "../../utils/rules-input";
-import {useActions} from "../../hooks/use-actions";
-import {useTypedSelector} from "../../hooks/use-typed-selector";
 
 
-const LoginFom: FC = () => {
-  const { error, isLoading } = useTypedSelector(state => state.auth)
+const LoginForm: FC = () => {
+  const { error, isLoading } = useTypedSelector((state) => state.auth);
   const [ userLogin, setUserLogin ] = useState('');
   const [ password, setPassword ] = useState('');
 
-  const { login } = useActions()
+  const { login } = useActions();
   const submit = async () => {
     login(userLogin, password);
-  }
+  };
 
   return (
     <Form
@@ -29,7 +29,7 @@ const LoginFom: FC = () => {
       >
         <Input
           value={userLogin}
-          onChange={e => setUserLogin(e.target.value)}
+          onChange={(e) => setUserLogin(e.target.value)}
         />
       </Form.Item>
 
@@ -41,7 +41,7 @@ const LoginFom: FC = () => {
         <Input
           value={password}
           type="password"
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Item>
 
@@ -58,4 +58,4 @@ const LoginFom: FC = () => {
   );
 };
 
-export default LoginFom;
+export default LoginForm;
