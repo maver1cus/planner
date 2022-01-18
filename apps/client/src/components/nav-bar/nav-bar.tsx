@@ -42,7 +42,7 @@ const NavBar: FC = () => {
               >
 
                 <Menu.Item
-                  onClick={() => router.push(RouteNames.LOGIN)}
+                  onClick={() => router.push(RouteNames.REGISTRATION)}
                   key={1}
                 >
                   Регистрация
