@@ -5,7 +5,6 @@ import { storage } from './storage';
 export const saveUser = ( token:string, login: string, dispatch: AppDispatch ): void => {
   storage.save('token', token);
   storage.save('login', login);
-  storage.save('auth', 'true');
   dispatch(AuthActionCreators.setUser(login));
   dispatch(AuthActionCreators.setIsAuth(true));
   dispatch(AuthActionCreators.setIsLoading(false));

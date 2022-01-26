@@ -4,13 +4,15 @@ import AppRouter from './components/app-router/app-router';
 import NavBar from './components/nav-bar/nav-bar';
 import { useActions } from './hooks/use-actions';
 import { storage } from './utils/storage';
+import 'dotenv/config';
 
 function App(): JSX.Element {
   const { setUser, setIsAuth } = useActions();
 
   useEffect(() => {
-    if ( storage.get('auth') ) {
-      const login = storage.get('login');
+    const login = storage.get('login');
+
+    if ( login ) {
       setUser(login);
       setIsAuth(true);
     }

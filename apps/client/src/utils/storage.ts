@@ -1,6 +1,6 @@
 class Storage {
   save(key: string, value: string): void {
-    localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, value);
   }
 
   get(key: string): string {

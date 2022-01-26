@@ -43,7 +43,6 @@ export const AuthActionCreators = {
   logout: () => async (dispatch: AppDispatch): Promise<void> => {
     storage.remove('token');
     storage.remove('login');
-    storage.remove('auth');
     dispatch(AuthActionCreators.setUser(''));
     dispatch(AuthActionCreators.setIsAuth(false));
   }
