@@ -3,13 +3,15 @@ import { Layout } from 'antd';
 import AppRouter from './components/app-router/app-router';
 import NavBar from './components/nav-bar/nav-bar';
 import { useActions } from './hooks/use-actions';
+import { storage } from './utils/storage';
 
 function App(): JSX.Element {
   const { setUser, setIsAuth } = useActions();
 
   useEffect(() => {
-    if (localStorage.getItem('auth')) {
-      setUser(localStorage.getItem('login') || '');
+    if ( storage.get('auth') ) {
+      const login = storage.get('login');
+      setUser(login);
       setIsAuth(true);
     }
   }, [setIsAuth, setUser]);

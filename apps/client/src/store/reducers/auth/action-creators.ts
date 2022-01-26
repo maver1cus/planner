@@ -3,6 +3,7 @@ import { AuthActions, SetAuthAction, SetErrorAction, SetIsLoadingAction, SetUser
 import { AppDispatch } from '../../index';
 import { saveUser } from '../../../utils/user';
 import UserService from '../../../api/user.service';
+import { storage } from '../../../utils/storage';
 
 export const AuthActionCreators = {
   setUser: (user: string): SetUserAction => ({type: AuthActions.SET_USER, payload: user}),
@@ -40,9 +41,9 @@ export const AuthActionCreators = {
     }
   },
   logout: () => async (dispatch: AppDispatch): Promise<void> => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('login');
-    localStorage.removeItem('auth');
+    storage.remove('token');
+    storage.remove('login');
+    storage.remove('auth');
     dispatch(AuthActionCreators.setUser(''));
     dispatch(AuthActionCreators.setIsAuth(false));
   }

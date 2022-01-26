@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { BASE_URL_API } from '../utils/config';
+import { storage } from '../utils/storage';
 
 const $host = axios.create({
   baseURL: BASE_URL_API
@@ -10,7 +11,8 @@ const $authHost = axios.create({
 });
 
 const authInterceptor = (config: AxiosRequestConfig) => {
-  const token = localStorage.getItem('token') || '';
+  const token = storage.get('token');
+
   if (config.headers) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
