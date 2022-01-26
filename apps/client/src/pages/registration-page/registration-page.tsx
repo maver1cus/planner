@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import UserForm from '../../components/user-form/user-form';
 import { useActions } from '../../hooks/use-actions';
 import s from './registration-page.module.css';
@@ -13,7 +13,7 @@ const RegistrationPage: FC = () => {
         textBtn="Зарегистрироваться"
       />
     </div>
-  )
+  );
 };
 
 export default RegistrationPage;

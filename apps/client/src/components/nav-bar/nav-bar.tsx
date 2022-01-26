@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import { Layout, Menu, Row } from 'antd';
 import { RouteNames } from '../../router';
 import { useActions } from '../../hooks/use-actions';

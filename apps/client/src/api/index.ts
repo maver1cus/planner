@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig} from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { BASE_URL_API } from '../utils/config';
 
 const $host = axios.create({

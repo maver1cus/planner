@@ -9,7 +9,7 @@ export const AuthActionCreators = {
   setIsAuth: (auth: boolean): SetAuthAction => ({type: AuthActions.SET_AUTH, payload: auth}),
   setIsLoading: (loading: boolean): SetIsLoadingAction => ({type: AuthActions.SET_IS_LOADING, payload: loading}),
   setError: (payload: string): SetErrorAction => ({type: AuthActions.SET_ERROR, payload: payload}),
-  registration: (loginUser: string, password: string) => async (dispatch: AppDispatch) => {
+  registration: (loginUser: string, password: string) => async (dispatch: AppDispatch): Promise<void> => {
     try {
       dispatch(AuthActionCreators.setIsLoading(true));
       const response = await UserService.registration(loginUser, password);
@@ -24,7 +24,7 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setIsLoading(false));
     }
   },
-  login: (loginUser: string, password: string) => async (dispatch: AppDispatch) => {
+  login: (loginUser: string, password: string) => async (dispatch: AppDispatch): Promise<void> => {
     try {
       dispatch(AuthActionCreators.setIsLoading(true));
       const response = await UserService.login(loginUser, password);
@@ -39,7 +39,7 @@ export const AuthActionCreators = {
       dispatch(AuthActionCreators.setIsLoading(false));
     }
   },
-  logout: () => async (dispatch: AppDispatch) => {
+  logout: () => async (dispatch: AppDispatch): Promise<void> => {
     localStorage.removeItem('token');
     localStorage.removeItem('login');
     localStorage.removeItem('auth');
