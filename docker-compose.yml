@@ -16,6 +16,8 @@ services:
       - "3000:3000"
     networks:
       - planner-network
+    env_file:
+      - ./.env
 
   api:
     build:
@@ -32,6 +34,8 @@ services:
       - db_api
     ports:
       - "5000:5000"
+    env_file:
+      - ./.env
 
   db_api:
     image: postgres
@@ -47,6 +51,8 @@ services:
       - planner-network
     ports:
       - "25432:5432"
+    env_file:
+      - ./.env
 
 networks:
   planner-network:
