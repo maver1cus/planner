@@ -1,0 +1,20 @@
+{
+  "name": "planner",
+  "version": "1.0.0",
+  "description": "## Начальные требования - Docker - Docker-compose - NodeJs 16+",
+  "main": "index.js",
+  "scripts": {
+    "db:up": "docker-compose -f ./setup/docker-compose.dev.yml up  -d",
+    "db:down": "docker-compose -f ./setup/docker-compose.dev.yml down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maver1cus/planner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maver1cus/planner/issues"
+  },
+  "homepage": "https://github.com/maver1cus/planner#readme"
+}
