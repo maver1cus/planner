@@ -14,13 +14,13 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { AuthGuard } from '@app/user/guards/auth.guard';
-import { ResponseUserDto } from '@app/user/dto/response-user.dto';
-import { User } from '@app/user/decorators/user.decorator';
-import { UserDto } from '@app/user/dto/user.dto';
-import { UserEntity } from '@app/user/user.entity';
-import { UserResponseInterface } from '@app/user/types/user-response.interface';
-import { UserService } from '@app/user/user.service';
+import { AuthGuard } from './guards/auth.guard';
+import { ResponseUserDto } from './dto/response-user.dto';
+import { User } from './decorators/user.decorator';
+import { UserDto } from './dto/user.dto';
+import { UserEntity } from './entities/user.entity';
+import { UserResponseInterface } from './types/user-response.interface';
+import { UserService } from './user.service';
 
 @Controller()
 @ApiTags('user')
@@ -61,6 +61,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get current user' })
   async getCurrentUser(@User() user: UserEntity) {
+    console.log(42);
     return this.userService.buildUserResponse(user);
   }
 }

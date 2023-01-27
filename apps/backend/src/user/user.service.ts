@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { JWT_SECRET } from '@app/config';
 import { Repository } from 'typeorm';
 import { UserDto } from './dto/user.dto';
-import { UserEntity } from '@app/user/user.entity';
-import { UserResponseInterface } from './types/user-response.interface';
+import { UserEntity } from './entities/user.entity';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import { JWT_SECRET } from '../config/config';
+import { UserResponseInterface } from './types/user-response.interface';
 
 @Injectable()
 export class UserService {
@@ -17,7 +17,9 @@ export class UserService {
 
   async createUser(userDto: UserDto): Promise<UserEntity> {
     const userByLogin = await this.userRepository.findOne({
-      login: userDto.login,
+      where: {
+        login: userDto.login,
+      },
     });
 
     if (userByLogin) {
@@ -34,14 +36,12 @@ export class UserService {
   }
 
   async login(userDto: UserDto): Promise<UserEntity> {
-    const user = await this.userRepository.findOne(
-      {
+    const user = await this.userRepository.findOne({
+      where: {
         login: userDto.login,
       },
-      {
-        select: ['id', 'login', 'password'],
-      },
-    );
+      select: ['id', 'login', 'password'],
+    });
 
     if (!user) {
       throw new HttpException(
@@ -64,8 +64,12 @@ export class UserService {
     return user;
   }
 
-  findById(id: any) {
-    return this.userRepository.findOne(id);
+  async findById(id: number): Promise<UserEntity> {
+    return await this.userRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 
   generateJwt(user: UserEntity): string {

@@ -1,9 +1,10 @@
-import { AuthGuard } from '@app/user/guards/auth.guard';
 import { Module } from '@nestjs/common';
+import { UserService } from './user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserController } from '@app/user/user.controller';
-import { UserEntity } from '@app/user/user.entity';
-import { UserService } from '@app/user/user.service';
+import { UserEntity } from './entities/user.entity';
+import { UserController } from './user.controller';
+import { AuthGuard } from './guards/auth.guard';
+
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
