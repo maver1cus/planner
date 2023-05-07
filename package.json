@@ -4,6 +4,9 @@
   "description": "## Начальные требования - Docker - Docker-compose - NodeJs 16+",
   "main": "index.js",
   "scripts": {
+    "postinstall": "concurrently  npm:install*",
+    "install:client": "cd apps/client && npm install",
+    "install:backend": "cd apps/backend && npm install",
     "db:up": "docker-compose -f ./setup/docker-compose.dev.yml up  -d",
     "db:down": "docker-compose -f ./setup/docker-compose.dev.yml down"
   },
@@ -16,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/maver1cus/planner/issues"
   },
-  "homepage": "https://github.com/maver1cus/planner#readme"
+  "homepage": "https://github.com/maver1cus/planner#readme",
+  "devDependencies": {
+    "concurrently": "8.0.1"
+  }
 }
