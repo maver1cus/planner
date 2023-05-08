@@ -1,0 +1,16 @@
+{
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "tabWidth": 2,
+  "singleQuote": true,
+  "semi": true,
+  "overrides": [
+    {
+      "files": ["**.*.css", "*.css"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}

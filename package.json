@@ -1,14 +1,14 @@
 {
   "name": "planner",
   "version": "1.0.0",
-  "description": "## Начальные требования - Docker - Docker-compose - NodeJs 16+",
-  "main": "index.js",
   "scripts": {
     "postinstall": "concurrently  npm:install*",
     "install:client": "cd apps/client && npm install",
     "install:backend": "cd apps/backend && npm install",
     "db:up": "docker-compose -f ./setup/docker-compose.dev.yml up  -d",
-    "db:down": "docker-compose -f ./setup/docker-compose.dev.yml down"
+    "db:down": "docker-compose -f ./setup/docker-compose.dev.yml down",
+    "lint": "concurrently  npm:lint:* --kill-others-on-fail",
+    "lint:client": "cd client && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/maver1cus/planner#readme",
   "devDependencies": {
-    "concurrently": "8.0.1"
+    "concurrently": "8.0.1",
+    "prettier": "2.8.8"
   }
 }

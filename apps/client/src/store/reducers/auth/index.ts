@@ -4,10 +4,13 @@ const initialState: AuthState = {
   isAuth: false,
   error: '',
   isLoading: false,
-  user: ''
+  user: '',
 };
 
-export default function authReducer(state = initialState, action: AuthAction): AuthState {
+export default function authReducer(
+  state = initialState,
+  action: AuthAction
+): AuthState {
   switch (action.type) {
     case AuthActions.SET_AUTH:
       return { ...state, isAuth: action.payload, isLoading: false };
