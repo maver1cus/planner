@@ -1,6 +1,6 @@
+import { hash } from 'bcrypt';
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { hash } from 'bcrypt';
 
 @Entity({ name: 'users' })
 export class UserEntity {

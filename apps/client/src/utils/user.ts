@@ -1,6 +1,5 @@
 import { AppDispatch } from 'store/index';
 import { AuthActionCreators } from 'store/reducers/auth/action-creators';
-
 import { storage } from './storage';
 
 export const saveUser = (

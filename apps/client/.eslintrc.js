@@ -28,7 +28,14 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'import', 'prettier', 'react', 'react-hooks'],
+  plugins: [
+    '@typescript-eslint',
+    'import',
+    'prettier',
+    'react',
+    'react-hooks',
+    'simple-import-sort',
+  ],
   rules: {
     'import/no-unresolved': 'off',
     // Layout & Formatting
@@ -232,23 +239,6 @@ module.exports = {
     'prefer-const': 'error',
     'spaced-comment': ['error', 'always'],
     yoda: 'error',
-    // Import plugin
-    'import/order': [
-      'error',
-      {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-        ],
-        alphabetize: {
-          order: 'asc',
-        },
-      },
-    ],
     'import/default': 'off',
     'import/no-named-as-default': 'off',
     'import/no-relative-packages': 'error',
@@ -257,6 +247,8 @@ module.exports = {
     'import/first': 'error',
     'import/no-duplicates': 'error',
     'import/newline-after-import': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     // Prettier
     'prettier/prettier': 'error',
     // React
@@ -326,6 +318,39 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['**/*.js', '**/*.ts', '**/*.tsx'],
+      rules: {
+        'simple-import-sort/imports': [
+          'error',
+          {
+            groups: [
+              [
+                '^react$',
+                '^[a-z]',
+                '^~',
+                '^@',
+                '^\\.\\.(?!/?$)',
+                '^\\.\\./?$',
+                '^\\./(?=.*/)(?!/?$)',
+                '^\\.(?!/?$)',
+                '^\\./?$',
+              ],
+              // images
+              ['^.\\.png|jpeg|jpg|svg|webp'],
+              // paths
+              ['^.+\\.path'],
+              // Style imports
+              ['^.+\\.s?css$'],
+              // Side effect imports
+              ['^\\u0000'],
+            ],
+          },
+        ],
+      },
+    },
+  ],
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx', '.scss', '.svg'],

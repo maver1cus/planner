@@ -1,11 +1,4 @@
 import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import {
   Body,
   Controller,
   Get,
@@ -14,11 +7,18 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { AuthGuard } from './guards/auth.guard';
-import { ResponseUserDto } from './dto/response-user.dto';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { User } from './decorators/user.decorator';
+import { ResponseUserDto } from './dto/response-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UserEntity } from './entities/user.entity';
+import { AuthGuard } from './guards/auth.guard';
 import { UserResponseInterface } from './types/user-response.interface';
 import { UserService } from './user.service';
 
@@ -62,6 +62,7 @@ export class UserController {
   @ApiOperation({ summary: 'Get current user' })
   async getCurrentUser(@User() user: UserEntity) {
     console.log(42);
+
     return this.userService.buildUserResponse(user);
   }
 }

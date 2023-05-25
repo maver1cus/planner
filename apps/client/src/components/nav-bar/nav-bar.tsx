@@ -1,7 +1,6 @@
-import { Layout, Menu, Row } from 'antd';
 import React, { FC } from 'react';
+import { Layout, Menu, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
 import { useActions } from '../../hooks/use-actions';
 import { useTypedSelector } from '../../hooks/use-typed-selector';
 import { RouteNames } from '../../router';

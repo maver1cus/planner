@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-
 import { BASE_URL_API } from '../utils/config';
 import { storage } from '../utils/storage';
 
@@ -29,4 +28,4 @@ const authInterceptor = (config: AxiosRequestConfig) => {
 
 $authHost.interceptors.request.use(authInterceptor);
 
-export { $host, $authHost };
+export { $authHost, $host };

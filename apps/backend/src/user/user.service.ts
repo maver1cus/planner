@@ -1,11 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UserDto } from './dto/user.dto';
-import { UserEntity } from './entities/user.entity';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import { Repository } from 'typeorm';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { JWT_SECRET } from '../config/config';
+import { UserDto } from './dto/user.dto';
+import { UserEntity } from './entities/user.entity';
 import { UserResponseInterface } from './types/user-response.interface';
 
 @Injectable()
@@ -30,6 +30,7 @@ export class UserService {
     }
 
     const newUser = new UserEntity();
+
     Object.assign(newUser, userDto);
 
     return await this.userRepository.save(newUser);

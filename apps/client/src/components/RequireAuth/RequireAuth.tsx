@@ -1,6 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-
 import { useTypedSelector } from '../../hooks/use-typed-selector';
 // eslint-disable-next-line import/namespace
 import { RouteNames } from '../../router';

@@ -1,10 +1,8 @@
 import { isAxiosError } from 'axios';
-
 import UserService from '../../../api/user.service';
 import { storage } from '../../../utils/storage';
 import { saveUser } from '../../../utils/user';
 import { AppDispatch } from '../../index';
-
 import {
   AuthActions,
   SetAuthAction,

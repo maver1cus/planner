@@ -1,6 +1,5 @@
-import { Button, Form, Input } from 'antd';
 import React, { useState } from 'react';
-
+import { Button, Form, Input } from 'antd';
 import { useTypedSelector } from '../../hooks/use-typed-selector';
 import { AppDispatch } from '../../store';
 import { rulesInput } from '../../utils/rules-input';

@@ -1,14 +1,13 @@
+import React, { useEffect } from 'react';
 import { Layout } from 'components/Layout';
 import { RequireAuth } from 'components/RequireAuth/RequireAuth';
-import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import { useActions } from './hooks/use-actions';
 import LoginPage from './pages/login-page/login-page';
 import MainPage from './pages/main-page/main-page';
 import RegistrationPage from './pages/registration-page/registration-page';
-import { RouteNames } from './router';
 import { storage } from './utils/storage';
+import { RouteNames } from './router';
 
 export const App = () => {
   const { setUser, setIsAuth } = useActions();
