@@ -1,4 +1,4 @@
-import { HomePage, AboutPage } from './pages';
+import { HomePage, AboutPage } from 'pages';
 import { App } from './App';
 import type { RouteObject } from 'react-router-dom';
 

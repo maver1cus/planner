@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import { Counter } from "./components/complex";
+import { Counter } from './components/complex';
 import { RouteEnum } from './routes';
 
 import './styles/index.scss';
