@@ -6,5 +6,6 @@ export function buildDevServer({ port, proxy}: BuildOptions): DevServerConfigura
     port,
     proxy,
     historyApiFallback: true,
+    hot: true,
   }
 }
