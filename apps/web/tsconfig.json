@@ -9,14 +9,26 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["./src/*"]
+      "*": [
+        "./src/*"
+      ]
     }
+  },
+  "jsonCompilerOptions": {
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
     }
-  }
+  },
+  "include": [
+    ".eslintrc.js",
+    "./src/**/*",
+    "./config/**/*",
+    "./webpack.config.ts",
+    "./jest.config.ts"
+  ]
 }

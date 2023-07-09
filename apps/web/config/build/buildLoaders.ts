@@ -1,26 +1,26 @@
-import { RuleSetRule } from 'webpack';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import type { BuildOptions } from './types/config';
+import { type RuleSetRule } from 'webpack'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import type { BuildOptions } from './types/config'
 
-export function buildLoaders({ isDev }: BuildOptions): RuleSetRule[]  {
+export function buildLoaders ({ isDev }: BuildOptions): RuleSetRule[] {
   const svgLoader = {
     test: /\.svg$/,
-    use: ['@svgr/webpack'],
+    use: ['@svgr/webpack']
   }
 
   const fileLoader = {
     test: /\.(png|jpe?g|gif|woff|woff2)$/i,
     use: [
       {
-        loader: 'file-loader',
-      },
-    ],
+        loader: 'file-loader'
+      }
+    ]
   }
 
   const typescriptLoader = {
     test: /\.tsx?$/,
     use: 'ts-loader',
-    exclude: /node_modules/,
+    exclude: /node_modules/
   }
 
   const styleLoader = {
@@ -38,14 +38,14 @@ export function buildLoaders({ isDev }: BuildOptions): RuleSetRule[]  {
           }
         }
       },
-      'sass-loader',
-    ],
+      'sass-loader'
+    ]
   }
 
   return [
     fileLoader,
     svgLoader,
     typescriptLoader,
-    styleLoader,
+    styleLoader
   ]
 }

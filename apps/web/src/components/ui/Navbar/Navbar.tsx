@@ -1,11 +1,13 @@
-import {Link} from "react-router-dom";
-import clsx from "clsx";
-import classes from './Navbar.module.scss';
+import { Link } from 'react-router-dom'
+import clsx from 'clsx'
+import classes from './Navbar.module.scss'
+import { type FC } from 'react'
 
 interface NavbarProps {
-  className?: string;
+  className?: string
 }
-export const Navbar = ({ className }: NavbarProps) => {
+
+export const Navbar: FC = ({ className }: NavbarProps) => {
   return (
     <div className={clsx(classes.navbar, className)}>
       <div className={classes.links}>
@@ -13,5 +15,5 @@ export const Navbar = ({ className }: NavbarProps) => {
         <Link to="/about">About</Link>
       </div>
     </div>
-  );
-};
+  )
+}
