@@ -12,7 +12,10 @@
     "lint:backend": "cd apps/backend && npm run lint",
     "lintfix": "concurrently  npm:lintfix:* --kill-others-on-fail",
     "lintfix:client": "cd apps/client && npm run lint:fix",
-    "lintfix:backend": "cd apps/backend && npm run lint:fix"
+    "lintfix:backend": "cd apps/backend && npm run lint:fix",
+    "start": "concurrently npm:start*",
+    "start:backend": "cd apps/backend && npm run start:dev",
+    "start:web": "cd apps/web && npm run start"
   },
   "repository": {
     "type": "git",

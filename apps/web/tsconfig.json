@@ -4,7 +4,7 @@
     "noImplicitAny": true,
     "module": "ESNext",
     "target": "es5",
-    "jsx": "react-jsx",
+    "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -12,13 +12,10 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "./src/*"
-      ]
+      "*": ["./src/*"]
     }
   },
-  "jsonCompilerOptions": {
-  },
+  "jsonCompilerOptions": {},
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

@@ -1,16 +1,13 @@
-import { Counter } from 'components/complex'
-import { AppRouter } from 'providers/AppRouter'
-import { Navbar } from 'components/ui'
-import EditIcon from 'assets/icons/edit.svg'
+import React from 'react';
+import { type FC } from 'react';
+import { Navbar } from 'components/ui';
+import { AppRouter } from 'providers/AppRouter';
 
-import './styles/index.scss'
-import { type FC } from 'react'
+import './styles/index.scss';
 
 export const App: FC = () => (
   <div className="app">
-    <Navbar/>
-    <EditIcon/>
-    <Counter/>
-    <AppRouter/>
+    <Navbar />
+    <AppRouter />
   </div>
-)
+);

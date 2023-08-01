@@ -1,12 +1,12 @@
 declare module '*.scss' {
-  type IClassNames = Record<string, string>
-  const classNames: IClassNames
-  export = classNames
+  type IClassNames = Record<string, string>;
+  const classNames: IClassNames;
+  export = classNames;
 }
 
 declare module '*.svg' {
-  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
-  export default content
+  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  export default content;
 }
 
 declare module '*.png';
@@ -16,4 +16,4 @@ declare module '*.gif';
 declare module '*.woff';
 declare module '*.woff2';
 
-declare const __IS_DEV__: boolean
+declare const __IS_DEV__: boolean;

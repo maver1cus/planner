@@ -1,0 +1,96 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion:": "latest",
+    "sourceType": "module",
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "import",
+    "simple-import-sort"
+  ],
+  "rules": {
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "no-unused-vars": "warn",
+    "react/jsx-props-no-spreading": "warn",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "import/default": "off",
+    "import/no-named-as-default": "off",
+    "import/no-relative-packages": "error",
+    "import/no-useless-path-segments": "error",
+    "import/no-self-import": "error",
+    "import/first": "error",
+    "import/no-duplicates": "error",
+    "import/newline-after-import": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+      ],
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json"
+        ]
+      },
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              [
+                "^[a-z]",
+                "^~",
+                "^@",
+                "^\\.\\.(?!/?$)",
+                "^\\.\\./?$",
+                "^\\./(?=.*/)(?!/?$)",
+                "^\\.(?!/?$)",
+                "^\\./?$"
+              ],
+              // images
+              [
+                "^.\\.png|jpeg|jpg|svg|webp"
+              ],
+              // Style imports
+              [
+                "^.+\\.s?css$"
+              ],
+              // Side effect imports
+              [
+                "^\\u0000"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "globals": {
+    "__IS_DEV__": true
+  }
+}
