@@ -8,7 +8,7 @@ async function bootstrap() {
   const port = BACKEND_PORT || 3001;
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:3000',
     credentials: true,
   });
 
