@@ -61,8 +61,6 @@ export class UserController {
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Get current user' })
   async getCurrentUser(@User() user: UserEntity) {
-    console.log(42);
-
     return this.userService.buildUserResponse(user);
   }
 }
