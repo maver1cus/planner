@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "concurrently  npm:install*",
-    "install:client": "cd apps/client && npm install",
+    "install:client": "cd apps/web && npm install",
     "install:backend": "cd apps/backend && npm install",
     "db:up": "docker-compose -f ./setup/docker-compose.dev.yml up  -d",
     "db:down": "docker-compose -f ./setup/docker-compose.dev.yml down",
