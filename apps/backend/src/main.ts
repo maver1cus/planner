@@ -1,11 +1,11 @@
-import * as process from 'process';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { BACKEND_PORT } from './config/config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  const port = process.env.BACKEND_PORT || 3001;
+  const port = BACKEND_PORT || 3001;
 
   app.enableCors({
     origin: 'http://localhost:5173',
