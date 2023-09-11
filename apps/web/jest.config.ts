@@ -14,14 +14,14 @@ export default {
   modulePaths: ['<rootDir>src'],
   testMatch: ['<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)'],
   rootDir: './',
-  setupFilesAfterEnv: ['<rootDir>config/jest/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>config/jest/setup-tests.ts'],
   moduleNameMapper: {
     '\\.s?css$': 'identity-obj-proxy',
     '\\.svg': path.resolve(
       __dirname,
       'config',
       'jest',
-      'jestEmptyComponent.tsx'
+      'jest-empty-component.tsx',
     ),
   },
   transform: {

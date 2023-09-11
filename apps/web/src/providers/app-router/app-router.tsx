@@ -1,6 +1,5 @@
-import { type FC } from 'react';
-import React from 'react';
-import { routeConfig } from 'providers/AppRouter/routeConfig';
+import React, { type FC } from 'react';
+import { routeConfig } from 'providers/app-router/route-config';
 import { Route, Routes } from 'react-router-dom';
 
 export const AppRouter: FC = () => {

@@ -1,9 +1,8 @@
-import React from 'react';
-import { type FC } from 'react';
+import React, { type FC } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import classes from './Navbar.module.scss';
+import classes from './navbar.module.scss';
 
 interface NavbarProps {
   className?: string;
