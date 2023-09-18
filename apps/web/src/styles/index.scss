@@ -1,0 +1,11 @@
+@import "varibles/global";
+@import "varibles/colors";
+@import "varibles/sizes";
+@import "reset";
+
+.app {
+  min-height: 100vh;
+  background: var(--bg-color);
+  color: var(--primary-color);
+  font: var(--font-m);
+}
