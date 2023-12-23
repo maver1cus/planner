@@ -6,13 +6,15 @@ import { ExpressRequestInterface } from '../../types/expres-request.interface';
 import { UserService } from '../user.service';
 
 @Injectable()
-export class AuthMiddelware implements NestMiddleware {
+export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
 
   async use(req: ExpressRequestInterface, res: Response, next: NextFunction) {
     const { authorization } = req.headers;
 
     req.user = null;
+
+    this.userService.createUser({ login: 'lo', password: '12323' });
 
     if (authorization) {
       try {
