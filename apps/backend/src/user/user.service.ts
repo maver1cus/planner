@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Prisma, User } from '@prisma/client';
-import { JWT_SECRET } from '../config/config';
+import { PrismaService } from '../prisma/prisma.service';
 import { UserDto } from './dto/user.dto';
 import { TUserPrismaService } from './types/user-prisma-service.type';
 import { UserResponseInterface } from './types/user-response.interface';
@@ -12,7 +12,10 @@ import { UserResponseInterface } from './types/user-response.interface';
 export class UserService {
   private readonly prisma: TUserPrismaService;
 
-  constructor(prisma: PrismaService) {
+  constructor(
+    prisma: PrismaService,
+    private readonly configService: ConfigService,
+  ) {
     this.prisma = prisma;
   }
 
@@ -97,7 +100,7 @@ export class UserService {
         id: user.id,
         login: user.login,
       },
-      JWT_SECRET,
+      this.configService.get('JWT_SECRET'),
     );
   }
 
