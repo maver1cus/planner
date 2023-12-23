@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ExpressRequestInterface } from '../../types/expres-request.interface';
+import { ExpressRequestInterface } from '../../types/express-request.interface';
 import { UserService } from '../user.service';
 
 @Injectable()
