@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigService } from '../../config/config.service';
 import { ExpressRequestInterface } from '../../types/express-request.interface';
 import { UserService } from '../user.service';
 
@@ -17,12 +17,10 @@ export class AuthMiddleware implements NestMiddleware {
 
     req.user = null;
 
-    this.userService.createUser({ login: 'lo', password: '12323' });
-
     if (authorization) {
       try {
         const token = authorization.split(' ')[1];
-        const { id } = verify(token, this.configService.get('JWT_SECRET')) as {
+        const { id } = verify(token, this.configService.app.jwtSecret) as {
           id: number;
         };
 

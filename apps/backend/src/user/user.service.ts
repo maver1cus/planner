@@ -1,8 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
+import { ConfigService } from '../config/config.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserDto } from './dto/user.dto';
 import { TUserPrismaService } from './types/user-prisma-service.type';
@@ -15,12 +15,13 @@ export class UserService {
   constructor(
     prisma: PrismaService,
     private readonly configService: ConfigService,
+    private readonly prismaService: PrismaService,
   ) {
     this.prisma = prisma;
   }
 
-  async createUser(userDto: Prisma.UserCreateInput): Promise<User> {
-    const userByLogin = await this.prisma.user.findUnique({
+  async createUser(userDto: UserDto): Promise<User> {
+    const userByLogin = this.prismaService.user.findUnique({
       where: {
         login: userDto.login,
       },
@@ -36,7 +37,7 @@ export class UserService {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(userDto.password, salt);
 
-    return await this.prisma.user.create({
+    return this.prisma.user.create({
       data: { ...userDto, password: hashPassword },
     });
   }
@@ -73,24 +74,8 @@ export class UserService {
   }
 
   async findById(id: number): Promise<User> {
-    const userLogin = Prisma.validator<Prisma.UserSelect>()({
-      login: true,
-      id: true,
-    });
-
-    const user = await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-      select: userLogin,
-    });
-
-    console.log(user);
-
-    return await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
+    return this.prisma.user.findUnique({
+      where: { id },
     });
   }
 
@@ -100,7 +85,7 @@ export class UserService {
         id: user.id,
         login: user.login,
       },
-      this.configService.get('JWT_SECRET'),
+      this.configService.app.jwtSecret,
     );
   }
 

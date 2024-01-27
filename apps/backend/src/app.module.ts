@@ -1,23 +1,14 @@
-import * as Joi from 'joi';
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from './config/config.module';
+import { ConfigService } from './config/config.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthMiddleware } from './user/middleware/auth.middleware';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [
-    UserModule,
-    PrismaModule,
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        JWT_SECRET: Joi.string().required(),
-        BACKEND_PORT: Joi.number().default(3002),
-      }),
-    }),
-  ],
+  imports: [UserModule, PrismaModule, ConfigModule],
   controllers: [],
-  providers: [],
+  providers: [ConfigService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

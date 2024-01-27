@@ -1,6 +1,6 @@
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ConfigService } from './config/config.service';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -8,7 +8,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  const port = configService.get('BACKEND_PORT');
+  const port = configService.app.port;
 
   app.enableCors({
     origin: 'http://localhost:3000',

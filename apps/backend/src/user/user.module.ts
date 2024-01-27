@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from '../config/config.module';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AuthGuard } from './guards/auth.guard';
 import { UserController } from './user.controller';
