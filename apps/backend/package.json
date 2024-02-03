@@ -20,9 +20,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:generate": "npx prisma generate",
-    "db:migration:dev": "npx prisma migrate dev",
-    "db:migration:prod": "npx prisma migrate build",
+    "db:generate": "prisma generate",
+    "db:migration:dev": "prisma migrate dev",
+    "db:migration:prod": "prisma migrate build",
     "db:studio": "prisma studio"
   },
   "dependencies": {
