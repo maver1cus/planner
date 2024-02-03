@@ -10,14 +10,14 @@ import { UserResponseInterface } from './types/user-response.interface';
 
 @Injectable()
 export class UserService {
-  private readonly prisma: TUserPrismaService;
+  private readonly prismaUserService: TUserPrismaService;
 
   constructor(
     prisma: PrismaService,
     private readonly configService: ConfigService,
     private readonly prismaService: PrismaService,
   ) {
-    this.prisma = prisma;
+    this.prismaUserService = prisma;
   }
 
   async createUser(userDto: UserDto): Promise<User> {
@@ -37,13 +37,13 @@ export class UserService {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(userDto.password, salt);
 
-    return this.prisma.user.create({
+    return this.prismaUserService.user.create({
       data: { ...userDto, password: hashPassword },
     });
   }
 
   async login(userDto: UserDto): Promise<User> {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prismaUserService.user.findUnique({
       where: {
         login: userDto.login,
       },
@@ -74,7 +74,7 @@ export class UserService {
   }
 
   async findById(id: number): Promise<User> {
-    return this.prisma.user.findUnique({
+    return this.prismaUserService.user.findUnique({
       where: { id },
     });
   }
