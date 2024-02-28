@@ -1,22 +1,27 @@
-import { compare } from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { Repository } from 'typeorm';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { JWT_SECRET } from '../config/config';
+import { User } from '@prisma/client';
+import { ConfigService } from '../config/config.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { UserDto } from './dto/user.dto';
-import { UserEntity } from './entities/user.entity';
+import { TUserPrismaService } from './types/user-prisma-service.type';
 import { UserResponseInterface } from './types/user-response.interface';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
-  ) {}
+  private readonly prismaUserService: TUserPrismaService;
 
-  async createUser(userDto: UserDto): Promise<UserEntity> {
-    const userByLogin = await this.userRepository.findOne({
+  constructor(
+    prisma: PrismaService,
+    private readonly configService: ConfigService,
+    private readonly prismaService: PrismaService,
+  ) {
+    this.prismaUserService = prisma;
+  }
+
+  async createUser(userDto: UserDto): Promise<User> {
+    const userByLogin = this.prismaService.user.findUnique({
       where: {
         login: userDto.login,
       },
@@ -29,19 +34,19 @@ export class UserService {
       );
     }
 
-    const newUser = new UserEntity();
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(userDto.password, salt);
 
-    Object.assign(newUser, userDto);
-
-    return await this.userRepository.save(newUser);
+    return this.prismaUserService.user.create({
+      data: { ...userDto, password: hashPassword },
+    });
   }
 
-  async login(userDto: UserDto): Promise<UserEntity> {
-    const user = await this.userRepository.findOne({
+  async login(userDto: UserDto): Promise<User> {
+    const user = await this.prismaUserService.user.findUnique({
       where: {
         login: userDto.login,
       },
-      select: ['id', 'login', 'password'],
     });
 
     if (!user) {
@@ -51,7 +56,10 @@ export class UserService {
       );
     }
 
-    const isPasswordCorrect = await compare(userDto.password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(
+      userDto.password,
+      user.password,
+    );
 
     if (!isPasswordCorrect) {
       throw new HttpException(
@@ -65,25 +73,23 @@ export class UserService {
     return user;
   }
 
-  async findById(id: number): Promise<UserEntity> {
-    return await this.userRepository.findOne({
-      where: {
-        id: id,
-      },
+  async findById(id: number): Promise<User> {
+    return this.prismaUserService.user.findUnique({
+      where: { id },
     });
   }
 
-  generateJwt(user: UserEntity): string {
+  generateJwt(user: User): string {
     return sign(
       {
         id: user.id,
         login: user.login,
       },
-      JWT_SECRET,
+      this.configService.app.jwtSecret,
     );
   }
 
-  buildUserResponse(user: UserEntity): UserResponseInterface {
+  buildUserResponse(user: User): UserResponseInterface {
     return {
       id: user.id,
       login: user.login,
